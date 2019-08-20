@@ -47,9 +47,10 @@ Voice.onSpeechStart = this.onSpeechStart.bind(this);
     });
   }
 
-componentWillUnmount() {
+  componentWillUnmount() {
     Voice.destroy().then(Voice.removeAllListeners);
   }
+
 onSpeechStart(e) {
     this.setState({
       started: '√',
@@ -61,7 +62,7 @@ onSpeechRecognized(e) {
     });
   };
 onSpeechResults(e) {
-    if (e.value[0].toLowerCase().indexOf(smartText) > -1) {
+    if (e.value[0].toLowerCase().indexOf(smartText) > -1) { //checks if incoming speech contains Hello
       console.log('output');
       Tts.getInitStatus().then(() => {
         Tts.speak('Hi, How may I help you');
@@ -70,7 +71,7 @@ onSpeechResults(e) {
     }
     this.setState({
       results: e.value,
-      message: 'Hi, How May I Help You!'
+      message: e.value
     });
   }
 async _startRecognition(e) {
